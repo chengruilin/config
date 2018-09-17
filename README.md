@@ -7,3 +7,15 @@
 ln -s .spacemacs ~/.spacemacs
 ```
 
+## zshrc
+
+``` shell
+plugins=(
+  git
+  // shell auto-complete
+  zsh-autosuggestions
+)
+
+```
+
+
