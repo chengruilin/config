@@ -1,0 +1,34 @@
+# -*- mode: snippet -*-
+# name: vue-file-complete
+# key: vuecomp
+# --
+<!-- template -->
+<template>
+  <div>
+  </div>
+</template>
+
+<!-- script -->
+<script>
+  export default {
+    data() {
+      return {
+        $1
+      }
+    },
+    props: {
+      $2
+    },
+    methods: {
+      $3
+    }
+  }
+</script>
+
+<!-- style -->
+<style scoped>
+  $4
+</style>
+
+
+
