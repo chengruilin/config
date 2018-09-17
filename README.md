@@ -4,6 +4,6 @@
 ## Spacemacs config
 
 ``` shell
-ln -s ~/Documents/config/.spacemacs ~/.spacemacs
+ln -s .spacemacs ~/.spacemacs
 ```
 
