@@ -352,6 +352,10 @@ you should place your code here."
    web-mode-code-indent-offset 2
    web-mode-attr-indent-offset 2)
 
+  ;; agenda
+  (setq org-agenda-files '("~/org"))
+
+  ;; for-vue-edit
   (require 'lsp-mode)
   (require 'lsp-vue)
   (require 'company-lsp)
