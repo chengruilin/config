@@ -27,6 +27,7 @@ ln -s 'pwd'/snippts/ ~/.emacs.d/snippts/
 
 ``` shell
 ## buffer
+yas-new-snippt
 
 ```
 
