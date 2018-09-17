@@ -4,7 +4,16 @@
 ## Spacemacs config
 
 ``` shell
-ln -s .spacemacs ~/.spacemacs
+pwd
+ln -s 'pwd'/spacemacs ~/.spacemacs
+```
+
+### vue support
+install vue-language-server
+
+``` shell
+# with npm
+npm install vue-language-server -g
 ```
 
 ## zshrc
