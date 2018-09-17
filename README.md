@@ -16,6 +16,20 @@ install vue-language-server
 npm install vue-language-server -g
 ```
 
+### yasnippt
+
+link yasnippts to ~/.emacs.d dir
+``` shell
+pwd
+ln -s 'pwd'/snippts/ ~/.emacs.d/snippts/
+```
+
+
+``` shell
+## buffer
+
+```
+
 ## zshrc
 
 ``` shell
