@@ -27,7 +27,10 @@ values."
    ;; If non-nil layers with lazy install support are lazy installed.
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
-   dotspacemacs-configuration-layer-path '()
+   dotspacemacs-configuration-layer-path
+   '(
+     "~/.emacs.d/private/layers"
+     )
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
@@ -37,6 +40,7 @@ values."
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      html
+     custom
      javascript
      markdown
      helm
@@ -354,7 +358,7 @@ you should place your code here."
    web-mode-attr-indent-offset 2)
 
   ;; agenda
-  (setq org-agenda-files '("~/org"))
+  (setq org-agenda-files (list "~/org/"))
 
   ;; for-vue-edit
   (require 'lsp-mode)
