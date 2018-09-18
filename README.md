@@ -5,7 +5,7 @@
 
 ``` shell
 pwd
-ln -s 'pwd'/spacemacs ~/.spacemacs
+ln -s 'pwd'/.spacemacs ~/.spacemacs
 ```
 
 ### private layer
@@ -29,7 +29,7 @@ npm install vue-language-server -g
 link yasnippts to "~/.emacs.d dir"
 ``` shell
 pwd
-ln -s 'pwd'/snippts/ ~/.emacs.d/snippts/
+ln -s 'pwd'/snippts/ ~/.emacs.d/private/snippts/
 ```
 
 
