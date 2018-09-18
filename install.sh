@@ -23,7 +23,7 @@ if [ -h "$file_bak_spacemacs" ]; then
     `rm ${file_bak_spacemacs}`
 fi
 
-if [ -f "$file_spacemacs" ]; then
+if [ -f "$file_spacemacs" ] && [ ! -h "$file_spacemacs" ]; then
     echo "Copy origin .spacemacs file to _spacemacs.bak1024"
     `mv ${file_spacemacs} ${file_bak_spacemacs}`
 else
@@ -49,7 +49,7 @@ else
     echo "$file_bak_snippets not exits"
 fi
 
-if [ -d "$file_snippets" ]; then
+if [ -d "$file_snippets" ] && [ ! -h "$file_snippets" ]; then
     echo "Copy origin snippts directory to snippts.bak1024"
     `mv ${file_snippets} ${file_bak_snippets}`
 else
