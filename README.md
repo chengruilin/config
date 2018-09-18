@@ -1,5 +1,11 @@
 # Personal Config Files
 
+## install
+
+``` shell
+chmod +x install.sh
+./install.sh
+```
 
 ## Spacemacs config
 
