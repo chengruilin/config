@@ -3,21 +3,22 @@
 echo "Ryan's config installing..."
 
 current_path=`pwd`
-file_spacemacs="~/.spacemacs"
-file_bak_spacemacs="~/_spacemacs.bak1024"
+file_spacemacs="$HOME/.spacemacs"
+file_bak_spacemacs="$HOME/_spacemacs.bak1024"
 
-file_layers="~/.emacs.d/private/layers"
+file_layers="$HOME/.emacs.d/private/layers"
 
-file_snippets="~/.emacs.d/private/snippets"
-file_bak_snippets="~/.emacs.d/private/snippets.bak1024"
+file_snippets="$HOME/.emacs.d/private/snippets"
+file_bak_snippets="$HOME/.emacs.d/private/snippets.bak1024"
 
 
 echo "$current_path"
+echo $file_bak_spacemacs
 
 echo " "
 echo "------------------ spacemacs ------------------"
 
-if [ -L "$file_bak_spacemacs" ]; then
+if [ -h "$file_bak_spacemacs" ]; then
     echo "bak file exists, delete it"
     `rm ${file_bak_spacemacs}`
 fi
@@ -30,7 +31,7 @@ else
 fi
 
 echo "Link spacemacs file to $file_spacemacs"
-`ln -sf ${current_path}/.spacemacs ~/.spacemacs`
+`ln -sf ${current_path}/.spacemacs ${file_spacemacs}`
 
 echo " "
 echo "------------------ layers ------------------"
