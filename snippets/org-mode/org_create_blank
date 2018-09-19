@@ -1,0 +1,6 @@
+# name: Org Block
+# key: blk
+# --
+#+BEGIN_$1
+  $0
+#+END_$1
