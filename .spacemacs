@@ -46,7 +46,8 @@ values."
      helm
      ;;auto-completion
      (auto-completion :variables
-                      auto-completion-enable-help-tooltip t)
+                      auto-completion-enable-help-tooltip t
+                      :disabled-for org git shell)
      better-defaults
      emacs-lisp
      git
