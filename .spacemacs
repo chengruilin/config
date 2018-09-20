@@ -57,8 +57,8 @@ values."
      ;; markdown
      (org :variables org-enable-github-support t)
      (shell :variables
-             shell-default-height 30
-             shell-default-position 'bottom)
+            shell-default-height 30
+            shell-default-position 'bottom)
      (c-c++ :variables c-c++-enable-clang-support t)
 
      ;; spell-checking
@@ -358,8 +358,64 @@ you should place your code here."
    web-mode-code-indent-offset 2
    web-mode-attr-indent-offset 2)
 
-  ;; agenda
-  (setq org-agenda-files (list "~/org/"))
+  ;; Config for org-mode
+  (defvar org-agenda-dir "" "gtd org files location")
+  (setq-default org-agenda-dir "~/org")
+  (setq-default org-agenda-read-book-dir "~/org/books")
+  (setq-default org-agenda-read-doc-dir "~/org/doc")
+  (setq-default org-agenda-code-dir "~/org/code")
+  (setq-default org-agenda-local-dir "~/org/local")
+
+  (setq org-agenda-file-note (expand-file-name "notes.org" org-agenda-dir))
+  (setq org-agenda-file-gtd (expand-file-name "gtd.org" org-agenda-dir))
+  (setq org-agenda-file-journal (expand-file-name "journal.org" org-agenda-dir))
+  (setq org-agenda-file-code-snippet (expand-file-name "snippet.org" org-agenda-dir))
+  (setq org-default-notes-file (expand-file-name "gtd.org" org-agenda-dir))
+  (setq org-agenda-files (list org-agenda-dir
+                               org-agenda-local-dir
+                               org-agenda-code-dir
+                               org-agenda-read-doc-dir
+                               org-agenda-read-book-dir))
+
+  ;; Config for org-capture-templates
+  (setq org-capture-templates
+        '(
+          ("t" "Todo" entry (file+headline org-agenda-file-gtd "Workspace")
+           "* TODO [#B] %?\n  %i\n"
+           :empty-lines 1)
+          ("n" "notes" entry (file+headline org-agenda-file-note "Quick notes")
+           "* %?\n %i\n %U"
+           :empty-lines 1)
+          ("b" "Ideas" entry (file+headline org-agenda-file-note "Quick notes")
+           "* TODO [#B] %?\n %i\n %U"
+           :empty-lines 1)
+          ("l" "links" entry (file+headline org-agenda-file-note "Quick notes")
+           "* TODO [#C] %?\n %i\n %a \n %U"
+           :empty-lines 1)
+          )
+        )
+
+  ;; Config for task
+  ;; org-agenda will show "w" and "W"
+  (setq org-agenda-custom-commands
+        '(
+          ("w" . "任务安排")
+          ("wa" "重要且紧急的任务" tags-todo "+PRIORITY=\"A\"")
+          ("wb" "重要且不紧急的任务" tags-todo "-Weekly-Monthly-Daily+PRIORITY=\"B\"")
+          ("wc" "不重要且不紧急的任务" tags-todo "+PRIORITY=\"C\"")
+          ("W" "Weekly Review"
+           ((stuck "") ;; review stuck projects as designated by org-stuck-projects
+            (tags-todo "PROJECT") ;; review all projects (assuming you use todo keywords to designate projects)
+            ))
+          )
+        )
+
+  (setq org-link-abbrev-alist
+        '(
+          ("url-to-ja" . "http://translate.google.fr/translate?sl=en&tl=ja&u=%h")
+          ("google"    . "http://www.google.com/search?q=")
+          ("gmap"      . "http://maps.google.com/maps?q=%s")
+          ))
 
   ;; for-vue-edit
   (require 'lsp-mode)
