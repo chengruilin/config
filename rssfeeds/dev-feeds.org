@@ -1,4 +1,6 @@
 * Blogs                                                             :elfeed:
-** Mobile 
-*** https://segmentfault.com/articles/feeds
-** Web
+** Mobile                                                           :mobile:
+*** http://feeds.feedburner.com/blogspot/hsDu
+** Websites                                                       :websites:
+*** https://feed.infoq.com/cn?token=yV5lHoM3uVZTqXcuTdyeDFK4uzcE6XNQ
+*** http://feed.feedsky.com/pingwest

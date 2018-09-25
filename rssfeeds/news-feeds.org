@@ -1,5 +1,4 @@
-#+TAGS: 
-
-* Websites                                                          :elfeed:
-** 科学
-*** http://feeds.nature.com/NatureNewsComment
+* News                                                              :elfeed:
+** Science                                                          :science:
+*** http://feeds.nature.com/nature/rss/current
+*** http://cn.engadget.com/rss.xml
