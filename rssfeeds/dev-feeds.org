@@ -1,7 +1,4 @@
-#+TAGS: @android(a) @iOS(i) @mobile(m) @web(w) @java(j) @python(p)
-
-* Blogs
-*** Web Development
-**** http://planet.phpunit.de/atom.xml
-**** http://feeds.feedburner.com/symfony/blog
-**** http://feeds.feedburner.com/qooxdoo/blog/content
+* Blogs                                                             :elfeed:
+** Mobile 
+*** https://segmentfault.com/articles/feeds
+** Web
