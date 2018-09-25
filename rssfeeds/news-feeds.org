@@ -1,4 +1,3 @@
 * News                                                              :elfeed:
-** Science                                                          :science:
-*** http://feeds.nature.com/nature/rss/current
-*** http://cn.engadget.com/rss.xml
+
+

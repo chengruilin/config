@@ -1,6 +1,17 @@
-* Blogs                                                             :elfeed:
+* Devs                                                              :elfeed:
+** Android                                                         :android:
+*** https://android.jlelse.eu/feed
+** iOS                                                                 :ios:
+*** https://iosdevweekly.com/issues.rss
+*** https://developer.apple.com/news/rss/news.rss
 ** Mobile                                                           :mobile:
-*** http://feeds.feedburner.com/blogspot/hsDu
-** Websites                                                       :websites:
-*** https://feed.infoq.com/cn?token=yV5lHoM3uVZTqXcuTdyeDFK4uzcE6XNQ
-*** http://feed.feedsky.com/pingwest
+*** https://medium.com/feed/flutterpub                             :flutter:
+*** https://medium.com/feed/iotforall                                  :iot:
+** Tech                                                           :websites:
+*** http://news.ycombinator.com/rss
+** Medium                                                           :medium:
+*** https://medium.com/feed/square-corner-blog
+*** https://medium.com/feed/google-developers
+*** https://hackernoon.com/feed
+*** https://medium.freecodecamp.org/feed
+*** https://medium.com/feed/tensorflow                          :tensorflow:
