@@ -11,10 +11,7 @@ file_layers="$HOME/.emacs.d/private/layers"
 file_snippets="$HOME/.emacs.d/private/snippets"
 file_bak_snippets="$HOME/.emacs.d/private/snippets.bak1024"
 
-
-
-echo "$current_path"
-echo $file_bak_spacemacs
+file_feeds="$HOME/.emacs.d/private/rssfeeds"
 
 echo " "
 echo "------------------ spacemacs ------------------"
@@ -40,14 +37,19 @@ else
     echo "$file_spacemacs file not exists."
 fi
 
-echo "Link spacemacs file to $file_spacemacs"
-`ln -sf ${current_path}/.spacemacs ${file_spacemacs}`
+if [ ! -h "$file_spacemacs" ]; then
+    echo "Link spacemacs file to $file_spacemacs"
+    `ln -s ${current_path}/.spacemacs ${file_spacemacs}`
+fi
 
 echo " "
 echo "------------------ layers ------------------"
 
-echo "Link private layer to $file_layers"
-`ln -sf ${current_path}/layers/ ${file_layers}`
+
+if [ ! -h "${current_path}/layers" ]; then
+    echo "Link private layer to $file_layers"
+    `ln -s ${current_path}/layers ${file_layers}`
+fi
 
 echo " "
 echo "------------------ snippets ------------------"
@@ -68,8 +70,11 @@ fi
 
 echo " "
 echo "------------------ Org-Files ------------------"
-echo "Link custom snippts to ~/.emacs.d/snippets"
-`ln -sf ${current_path}/snippets/ ${file_snippets}`
+
+if [ ! -h "${current_path}/snippets" ]; then
+    echo "Link custom snippts to ~/.emacs.d/snippets"
+    `ln -s ${current_path}/snippets ${file_snippets}`
+fi
 
 #-------------- Git Clone org files --------------
 org_clone_path="$HOME/org"
@@ -92,3 +97,12 @@ then
 else
     echo "Finish"
 fi
+
+#-------------- RSS Feeds import --------------
+echo " "
+echo "------------------ RSS Feeds ------------------"
+if [ ! -h "${current_path}/rssfeeds" ]; then
+    echo "Link RSS feeds file to ~/.emacs.d/private/rssfeeds"
+    `ln -s ${current_path}/rssfeeds ${file_feeds}`
+fi
+
