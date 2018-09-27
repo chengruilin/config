@@ -52,11 +52,11 @@ values."
      java
      yaml
 
-     (elfeed :variables
-             elfeed-enable-web-interface t
-             rmh-elfeed-org-files (list "~/.emacs.d/private/rssfeeds/dev-feeds.org"
-                                        "~/.emacs.d/private/rssfeeds/favor-feeds.org"
-                                        "~/.emacs.d/private/rssfeeds/news-feeds.org"))
+     ;;(elfeed :variables
+     ;;        elfeed-enable-web-interface t
+     ;;        rmh-elfeed-org-files (list "~/.emacs.d/private/rssfeeds/dev-feeds.org"
+     ;;                                   "~/.emacs.d/private/rssfeeds/favor-feeds.org"
+     ;;                                   "~/.emacs.d/private/rssfeeds/news-feeds.org"))
      pdf-tools
      ;;auto-completion
      (auto-completion :variables
@@ -89,6 +89,7 @@ values."
      lsp-mode
      lsp-vue
      company-lsp
+     ;;google-translate
      ;;dart-mode
      )
    ;; A list of packages that cannot be updated.
@@ -452,6 +453,15 @@ you should place your code here."
   (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
   (add-hook 'web-mode-hook 'company-mode)
   (add-hook 'web-mode-hook 'lsp-vue-enable)
+
+  ;; Google-translate
+  (setq-default google-translate-enable-ido-completion t)
+  (setq-default google-translate-default-source-language "en")
+  (setq-default google-translate-default-target-language "zh-CN")
+  (setq-default google-translate-base-url
+                "https://translate.google.cn/translate_a/single"
+                google-translate--tkk-url
+                "https://translate.google.cn/")
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -461,12 +471,9 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-agenda-files
-   (quote
-    ("~/org/doc/doc_info_org_mode.org" "/home/ryan/org/gtd.org" "/home/ryan/org/journal.org" "/home/ryan/org/notes.org" "/home/ryan/org/snippet.org" "/home/ryan/org/code/read_flutter_source_code.org" "/home/ryan/org/code/read_weex_source_code.org" "/home/ryan/org/doc/doc_info_elisp.org" "/home/ryan/org/books/being_friends_with_time.org" "/home/ryan/org/books/the_art_of_unix_programming.org")))
  '(package-selected-packages
    (quote
-    (company-dart yaml-mode company-emacs-eclim eclim dart-mode pdf-tools tablist elfeed-web elfeed-org elfeed-goodies ace-jump-mode noflet elfeed flycheck-pos-tip lsp-ui lsp-vue company-lsp lsp-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data vue-mode edit-indirect ssass-mode vue-html-mode pyim pyim-basedict pangu-spacing find-by-pinyin-dired fcitx ace-pinyin pinyinlib helm-company helm-c-yasnippet fuzzy company-tern dash-functional company-statistics company-quickhelp pos-tip company auto-yasnippet ac-ispell auto-complete ox-gfm org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download htmlize gnuplot xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help wgrep smex ivy-hydra counsel-projectile counsel swiper ivy tern skewer-mode simple-httpd json-snatcher json-reformat yasnippet multiple-cursors js2-mode tide typescript-mode flycheck sql-indent ws-butler winum which-key web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org spaceline smeargle restart-emacs rainbow-delimiters popwin persp-mode pcre2el paradox orgit org-bullets open-junk-file neotree mwim move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode linum-relative link-hint json-mode js2-refactor js-doc indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-ag google-translate golden-ratio gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode coffee-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
+    (iedit evil projectile org-plus-contrib magit ghub hydra company-dart yaml-mode company-emacs-eclim eclim dart-mode pdf-tools tablist elfeed-web elfeed-org elfeed-goodies ace-jump-mode noflet elfeed flycheck-pos-tip lsp-ui lsp-vue company-lsp lsp-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data vue-mode edit-indirect ssass-mode vue-html-mode pyim pyim-basedict pangu-spacing find-by-pinyin-dired fcitx ace-pinyin pinyinlib helm-company helm-c-yasnippet fuzzy company-tern dash-functional company-statistics company-quickhelp pos-tip company auto-yasnippet ac-ispell auto-complete ox-gfm org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download htmlize gnuplot xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help wgrep smex ivy-hydra counsel-projectile counsel swiper ivy tern skewer-mode simple-httpd json-snatcher json-reformat yasnippet multiple-cursors js2-mode tide typescript-mode flycheck sql-indent ws-butler winum which-key web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org spaceline smeargle restart-emacs rainbow-delimiters popwin persp-mode pcre2el paradox orgit org-bullets open-junk-file neotree mwim move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode linum-relative link-hint json-mode js2-refactor js-doc indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-ag google-translate golden-ratio gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode coffee-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
