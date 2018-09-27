@@ -52,11 +52,11 @@ values."
      java
      yaml
 
-     ;;(elfeed :variables
-     ;;        elfeed-enable-web-interface t
-     ;;        rmh-elfeed-org-files (list "~/.emacs.d/private/rssfeeds/dev-feeds.org"
-     ;;                                   "~/.emacs.d/private/rssfeeds/favor-feeds.org"
-     ;;                                   "~/.emacs.d/private/rssfeeds/news-feeds.org"))
+     (elfeed :variables
+             elfeed-enable-web-interface t
+             rmh-elfeed-org-files (list "~/.emacs.d/private/rssfeeds/dev-feeds.org"
+                                        "~/.emacs.d/private/rssfeeds/favor-feeds.org"
+                                        "~/.emacs.d/private/rssfeeds/news-feeds.org"))
      pdf-tools
      ;;auto-completion
      (auto-completion :variables
