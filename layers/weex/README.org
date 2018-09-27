@@ -1,7 +1,7 @@
-#+TITLE: dart-for-flutter layer
+#+TITLE: weex layer
 
 # The maximum height of the logo should be 200 pixels.
-[[img/dart-for-flutter.png]]
+[[img/weex.png]]
 
 # TOC links should be GitHub style anchors.
 * Table of Contents                                        :TOC_4_gh:noexport:
@@ -15,7 +15,7 @@ This layer does wonderful things:
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =dart-for-flutter= to the existing =dotspacemacs-configuration-layers= list in this
+add =weex= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Key bindings

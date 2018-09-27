@@ -1,8 +1,8 @@
-;;; packages.el --- custom layer packages file for Spacemacs.
+;;; packages.el --- flutter layer packages file for Spacemacs.
 ;;
 ;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
-;; Author: ryan <ryan@ryan-pc>
+;; Author: Ryan <ryan@Qiezi-Macbook.local>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
@@ -18,20 +18,22 @@
 ;;
 ;;
 ;; Briefly, each package to be installed or configured by this layer should be
-;; added to `custom-packages'. Then, for each package PACKAGE:
+;; added to `flutter-packages'. Then, for each package PACKAGE:
 ;;
 ;; - If PACKAGE is not referenced by any other Spacemacs layer, define a
-;;   function `custom/init-PACKAGE' to load and initialize the package.
+;;   function `flutter/init-PACKAGE' to load and initialize the package.
 
 ;; - Otherwise, PACKAGE is already referenced by another Spacemacs layer, so
-;;   define the functions `custom/pre-init-PACKAGE' and/or
-;;   `custom/post-init-PACKAGE' to customize the package as it is loaded.
+;;   define the functions `flutter/pre-init-PACKAGE' and/or
+;;   `flutter/post-init-PACKAGE' to customize the package as it is loaded.
 
 ;;; Code:
 
-(defconst custom-packages
-  '()
-  "The list of Lisp packages required by the custom layer.
+(defconst flutter-packages
+  '(
+    dart-mode
+    )
+  "The list of Lisp packages required by the flutter layer.
 
 Each entry is either:
 
@@ -57,6 +59,28 @@ Each entry is either:
 
       - A list beginning with the symbol `recipe' is a melpa
         recipe.  See: https://github.com/milkypostman/melpa#recipe-format")
+
+(defun flutter/post-init-company()
+  (spacemacs|add-company-hook dart-mode))
+
+(defun flutter/post-init-flycheck()
+  (spacemacs/add-flycheck-hook 'dart-mode))
+
+(defun flutter/init-dart-mode()
+  (use-package dart-mode
+    :defer t
+    :init
+    (progn
+      (add-hook 'dart-mode-hook #'(lambda () (modify-syntax-entry ?_ "w"))))
+    :config
+    (progn
+      (spacemacs/set-leader-keys
+        ;; (spacemacs/set-leader-keys-for-major-mode 'dart-mode
+        "dg" 'dart-goto
+        "df" 'dart-format
+        )
+      )
+    ))
 
 
 ;;; packages.el ends here
