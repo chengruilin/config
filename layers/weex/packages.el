@@ -30,7 +30,11 @@
 ;;; Code:
 
 (defconst weex-packages
-  '()
+  '(
+    lsp-mode
+    lsp-vue
+    company-lsp
+    )
   "The list of Lisp packages required by the weex layer.
 
 Each entry is either:
@@ -57,6 +61,5 @@ Each entry is either:
 
       - A list beginning with the symbol `recipe' is a melpa
         recipe.  See: https://github.com/milkypostman/melpa#recipe-format")
-
 
 ;;; packages.el ends here
