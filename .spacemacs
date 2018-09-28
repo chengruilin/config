@@ -51,6 +51,8 @@ values."
      helm
      java
      yaml
+     (chinese :variables
+              chinese-enable-youdao-dict t)
 
      (elfeed :variables
              elfeed-enable-web-interface t
@@ -62,7 +64,9 @@ values."
      (auto-completion :variables
                       auto-completion-enable-help-tooltip t
                       :disabled-for org git shell)
-     better-defaults
+
+     (better-defaults :variables
+                      better-defaults-move-to-beginning-of-code-first t)
      emacs-lisp
      git
      sql
