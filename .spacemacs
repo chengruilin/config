@@ -362,10 +362,10 @@ you should place your code here."
   (setq org-bullets-bullet-list '("■" "◆" "▲" "▶"))
   ;; 设置底部 powerline 状态栏的样式
   (setq powerline-default-separator 'arrow)
+
   ;; 设置js2-mode下分号warning不显示
   (setq js2-strict-missing-semi-warning nil)
   (global-company-mode)
-
   (setq-default
    ;; js2-mode
    js2-basic-offset 2
@@ -376,6 +376,14 @@ you should place your code here."
    web-mode-css-indent-offset 2
    web-mode-code-indent-offset 2
    web-mode-attr-indent-offset 2)
+
+  (spacemacs/set-leader-keys "yT" 'youdao-dictionary-search-at-point)
+  ;; personal key bindings
+  (spacemacs/set-leader-keys "yt" 'youdao-dictionary-search-at-point+)
+  (spacemacs/set-leader-keys "ys" 'youdao-dictionary-search)
+  (global-set-key (kbd "C-x y T") 'youdao-dictionary-search-at-point)
+  (global-set-key (kbd "C-x y t") 'youdao-dictionary-search-at-point+)
+  (global-set-key (kbd "C-x y s") 'youdao-dictionary-search)
 
   ;; Config for org-mode
   (defvar org-agenda-dir "" "gtd org files location")
@@ -476,7 +484,7 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (iedit evil projectile org-plus-contrib magit ghub hydra company-dart yaml-mode company-emacs-eclim eclim dart-mode pdf-tools tablist elfeed-web elfeed-org elfeed-goodies ace-jump-mode noflet elfeed flycheck-pos-tip lsp-ui lsp-vue company-lsp lsp-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data vue-mode edit-indirect ssass-mode vue-html-mode pyim pyim-basedict pangu-spacing find-by-pinyin-dired fcitx ace-pinyin pinyinlib helm-company helm-c-yasnippet fuzzy company-tern dash-functional company-statistics company-quickhelp pos-tip company auto-yasnippet ac-ispell auto-complete ox-gfm org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download htmlize gnuplot xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help wgrep smex ivy-hydra counsel-projectile counsel swiper ivy tern skewer-mode simple-httpd json-snatcher json-reformat yasnippet multiple-cursors js2-mode tide typescript-mode flycheck sql-indent ws-butler winum which-key web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org spaceline smeargle restart-emacs rainbow-delimiters popwin persp-mode pcre2el paradox orgit org-bullets open-junk-file neotree mwim move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode linum-relative link-hint json-mode js2-refactor js-doc indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-ag google-translate golden-ratio gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode coffee-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
+    (youdao-dictionary names chinese-word-at-point iedit evil projectile org-plus-contrib magit ghub hydra company-dart yaml-mode company-emacs-eclim eclim dart-mode pdf-tools tablist elfeed-web elfeed-org elfeed-goodies ace-jump-mode noflet elfeed flycheck-pos-tip lsp-ui lsp-vue company-lsp lsp-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data vue-mode edit-indirect ssass-mode vue-html-mode pyim pyim-basedict pangu-spacing find-by-pinyin-dired fcitx ace-pinyin pinyinlib helm-company helm-c-yasnippet fuzzy company-tern dash-functional company-statistics company-quickhelp pos-tip company auto-yasnippet ac-ispell auto-complete ox-gfm org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download htmlize gnuplot xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help wgrep smex ivy-hydra counsel-projectile counsel swiper ivy tern skewer-mode simple-httpd json-snatcher json-reformat yasnippet multiple-cursors js2-mode tide typescript-mode flycheck sql-indent ws-butler winum which-key web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org spaceline smeargle restart-emacs rainbow-delimiters popwin persp-mode pcre2el paradox orgit org-bullets open-junk-file neotree mwim move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode linum-relative link-hint json-mode js2-refactor js-doc indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-ag google-translate golden-ratio gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode coffee-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
