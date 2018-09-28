@@ -1,4 +1,4 @@
-;;; packages.el --- weex layer packages file for Spacemacs.
+;; packages.el --- weex layer packages file for Spacemacs.
 ;;
 ;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
@@ -34,6 +34,8 @@
     lsp-mode
     lsp-vue
     company-lsp
+    web-mode
+    company
     )
   "The list of Lisp packages required by the weex layer.
 
@@ -62,4 +64,29 @@ Each entry is either:
       - A list beginning with the symbol `recipe' is a melpa
         recipe.  See: https://github.com/milkypostman/melpa#recipe-format")
 
+(defun weex/init-lsp-mode()
+  (use-package lsp-mode))
+
+(defun weex/init-lsp-vue()
+  (use-package lsp-vue
+    :defer t
+    :config
+    (progn
+      (add-hook 'web-mode-hook 'lsp-vue-enable))
+    ))
+
+(defun weex/init-company-lsp()
+  (use-package company-lsp
+    :defer t
+    :config
+    (progn
+      (push 'company-lsp company-backends)
+      (add-to-list 'company-backends 'company-lsp))
+    ))
+
+(defun weex/post-init-web-mode()
+  (add-hook 'web-mode-hook 'company-mode)
+  (add-hook 'company-mode-hook 'company-quickhelp-mode)
+  (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
+   )
 ;;; packages.el ends here

@@ -42,16 +42,15 @@ values."
 
      ;; -------------- private layer ---------------
      flutter
+     weex
 
      ;; -------------- public layer ----------------
      html
-     custom
      javascript
      markdown
      helm
      java
      yaml
-
      (elfeed :variables
              elfeed-enable-web-interface t
              rmh-elfeed-org-files (list "~/.emacs.d/private/rssfeeds/dev-feeds.org"
@@ -86,9 +85,9 @@ values."
    dotspacemacs-additional-packages
    '(
      ;;vue-mode
-     lsp-mode
-     lsp-vue
-     company-lsp
+     ;; lsp-mode
+     ;; lsp-vue
+     ;; company-lsp
      ;;google-translate
      ;;dart-mode
      )
@@ -438,21 +437,21 @@ you should place your code here."
   ;; (setq dart-enable-analysis-server t)
 
   ;; for-vue-edit
-  (require 'lsp-mode)
-  (require 'lsp-vue)
-  (require 'company-lsp)
-  (push 'company-lsp company-backends)
-  (setq company-lsp-enable-snippet t)
+  ;; (require 'lsp-mode)
+  ;; (require 'lsp-vue)
+  ;; (require 'company-lsp)
+  ;; (push 'company-lsp company-backends)
+  ;; (setq company-lsp-enable-snippet t)
 
-  (setq company-minimum-prefix-length 1)
-  (setq company-dabbrev-downcase nil)
-  (setq company-idle-delay 0.5)
-  (add-hook 'company-mode-hook 'company-quickhelp-mode)
-  (add-to-list 'company-backends 'company-lsp)
+  ;; (setq company-minimum-prefix-length 1)
+  ;; (setq company-dabbrev-downcase nil)
+  ;; (setq company-idle-delay 0.5)
+  ;; (add-hook 'company-mode-hook 'company-quickhelp-mode)
+  ;; (add-to-list 'company-backends 'company-lsp)
 
-  (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
-  (add-hook 'web-mode-hook 'company-mode)
-  (add-hook 'web-mode-hook 'lsp-vue-enable)
+  ;; (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
+  ;; (add-hook 'web-mode-hook 'company-mode)
+  ;; (add-hook 'web-mode-hook 'lsp-vue-enable)
 
   ;; Google-translate
   (setq-default google-translate-enable-ido-completion t)
