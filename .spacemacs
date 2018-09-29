@@ -362,10 +362,10 @@ you should place your code here."
   (setq org-bullets-bullet-list '("■" "◆" "▲" "▶"))
   ;; 设置底部 powerline 状态栏的样式
   (setq powerline-default-separator 'arrow)
+
   ;; 设置js2-mode下分号warning不显示
   (setq js2-strict-missing-semi-warning nil)
   (global-company-mode)
-
   (setq-default
    ;; js2-mode
    js2-basic-offset 2
@@ -376,6 +376,14 @@ you should place your code here."
    web-mode-css-indent-offset 2
    web-mode-code-indent-offset 2
    web-mode-attr-indent-offset 2)
+
+  (spacemacs/set-leader-keys "yT" 'youdao-dictionary-search-at-point)
+  ;; personal key bindings
+  (spacemacs/set-leader-keys "yt" 'youdao-dictionary-search-at-point+)
+  (spacemacs/set-leader-keys "ys" 'youdao-dictionary-search)
+  (global-set-key (kbd "C-x y T") 'youdao-dictionary-search-at-point)
+  (global-set-key (kbd "C-x y t") 'youdao-dictionary-search-at-point+)
+  (global-set-key (kbd "C-x y s") 'youdao-dictionary-search)
 
   ;; Config for org-mode
   (defvar org-agenda-dir "" "gtd org files location")
