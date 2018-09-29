@@ -63,6 +63,8 @@ Each entry is either:
 
       - A list beginning with the symbol `recipe' is a melpa
         recipe.  See: https://github.com/milkypostman/melpa#recipe-format")
+(defun weex/post-init-company()
+  (spacemacs|add-company-hook web-mode))
 
 (defun weex/init-lsp-mode()
   (use-package lsp-mode))
