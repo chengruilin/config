@@ -1,2 +1,8 @@
 * News                                                              :elfeed:
-** https://feed.infoq.com/cn?token=yV5lHoM3uVZTqXcuTdyeDFK4uzcE6XNQ
+** https://feedx.net/rss/bbc.xml
+** https://feedx.net/rss/cnn.xml
+** https://feedx.net/rss/abc.xml
+** https://feedx.net/rss/ap.xml
+** https://feedx.net/rss/washingtonpost.xml
+** https://feedx.net/rss/economist.xml
+** https://feedx.net/rss/investing.xml
