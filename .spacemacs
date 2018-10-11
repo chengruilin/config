@@ -390,6 +390,10 @@ you should place your code here."
   (global-set-key (kbd "C-x y t") 'youdao-dictionary-search-at-point+)
   (global-set-key (kbd "C-x y s") 'youdao-dictionary-search)
 
+  ;; Config Object-C mode
+  (add-to-list 'auto-mode-alist '("\\.mm\\'" . objc-mode))
+  (add-to-list 'auto-mode-alist '("\\.m\\'" . objc-mode))
+
   ;; Config for org-mode
   (defvar org-agenda-dir "" "gtd org files location")
   (setq-default org-agenda-dir "~/org")
