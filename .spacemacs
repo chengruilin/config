@@ -180,8 +180,8 @@ values."
    ;;dotspacemacs-default-font '("Source Code Variable"
    ;;"Hiragino Sans GB"
    ;;设置等宽字体
-   dotspacemacs-default-font '("YaHei Consolas Hybrid"
-                               :size 16
+   dotspacemacs-default-font '("WenQuanYi Micro Hei Mono"
+                               :size 14
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -389,6 +389,10 @@ you should place your code here."
   (global-set-key (kbd "C-x y T") 'youdao-dictionary-search-at-point)
   (global-set-key (kbd "C-x y t") 'youdao-dictionary-search-at-point+)
   (global-set-key (kbd "C-x y s") 'youdao-dictionary-search)
+
+  ;; eclim
+  (setq eclim-eclipse-dirs '("~/snap/eclipse/29")
+        eclim-executable "~/opt/eclipse/eclim")
 
   ;; Config Object-C mode
   (add-to-list 'auto-mode-alist '("\\.mm\\'" . objc-mode))
