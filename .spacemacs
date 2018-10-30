@@ -363,6 +363,11 @@ you should place your code here."
   ;;(setq-default css-indent-offset 2)
   ;;(setq indent-tabs-mode nil
   ;;        js-indent-level 2)
+
+  ;; projectile
+  (setq projectile-enable-caching t)
+  ;;(setq projectile-indexing-method 'native)
+
   ;; 更改org-mode下的图标
   (setq org-bullets-bullet-list '("■" "◆" "▲" "▶"))
   ;; 设置底部 powerline 状态栏的样式
@@ -395,8 +400,13 @@ you should place your code here."
         eclim-executable "~/opt/eclipse/eclim")
 
   ;; Config Object-C mode
-  (add-to-list 'auto-mode-alist '("\\.mm\\'" . objc-mode))
-  (add-to-list 'auto-mode-alist '("\\.m\\'" . objc-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.mm\\'" . objc-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.m\\'" . objc-mode))
+  (setq auto-mode-alist (cons '("\\.m\\'" . objc-mode)
+                              (delq (assoc "\\.m\\'" auto-mode-alist) auto-mode-alist)))
+  (setq auto-mode-alist (cons '("\\.mm\\'" . objc-mode)
+                              (delq (assoc "\\.mm\\'" auto-mode-alist) auto-mode-alist)))
+
 
   ;; Config for org-mode
   (defvar org-agenda-dir "" "gtd org files location")
