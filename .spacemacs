@@ -45,6 +45,7 @@ values."
      weex
 
      ;; -------------- public layer ----------------
+     react
      python
      ipython-notebook
      html
@@ -355,7 +356,7 @@ executes.
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
   ;;(add-to-list 'auto-mode-alist '("\\.njs\\'" . web-mode))
-  (setq org-reveal-root "/revealjs")
+  ;;(setq org-reveal-root "/revealjs")
   )
 
 (defun dotspacemacs/user-config ()
