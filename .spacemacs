@@ -188,7 +188,7 @@ values."
    ;;"Hiragino Sans GB"
    ;;设置等宽字体
    dotspacemacs-default-font '("WenQuanYi Micro Hei Mono"
-                               :size 18
+                               :size 20
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -376,10 +376,42 @@ you should place your code here."
   (setq projectile-enable-caching t)
   ;;(setq projectile-indexing-method 'native)
 
+  ;; 关闭自动备份
+  (setq make-backup-files nil)
+
+  ;; 选择内容之后输入删除老的内容
+  (delete-selection-mode 1)
+
+  ;; 自动加载外部修改过的文件
+  (global-auto-revert-mode 1)
+
   ;; 更改org-mode下的图标
   (setq org-bullets-bullet-list '("■" "◆" "▲" "▶"))
   ;; 设置底部 powerline 状态栏的样式
   (setq powerline-default-separator 'arrow)
+
+  ;; 使用 Hippie Expand 来完成补全
+  (setq hippie-expand-try-function-list '(try-expand-debbrev
+                                          try-expand-debbrev-all-buffers
+                                          try-expand-debbrev-from-kill
+                                          try-complete-file-name-partially
+                                          try-complete-file-name
+                                          try-expand-all-abbrevs
+                                          try-expand-list
+                                          try-expand-line
+                                          try-complete-lisp-symbol-partially
+                                          try-complete-lisp-symbol))
+  (global-set-key (kbd "s-/") 'hippie-expand)
+
+  ;; 多光标编辑
+  (global-set-key (kbd "M-s e") 'iedit-mode)
+
+  ;; 在 Company 补全模式下,用 C-n,C-p上下切换
+  (with-eval-after-load 'company
+    (define-key company-active-map (kbd "M-n") nil)
+    (define-key company-active-map (kbd "M-p") nil)
+    (define-key company-active-map (kbd "C-n") #'company-select-next)
+    (define-key company-active-map (kbd "C-p") #'company-select-previous))
 
   ;; 设置js2-mode下分号warning不显示
   (setq js2-strict-missing-semi-warning nil)
