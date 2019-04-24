@@ -50,11 +50,15 @@ values."
      ipython-notebook
      html
      javascript
-     markdown
+     (markdown :variables markdown-live-preview-engine 'vmd)
      helm
+     (c-c++ :variables
+            c-c++-default-mode-for-headers 'c++-mode)
      ;;java
      yaml
      (chinese :variables
+              chinese-enable-avy-pinyin nil
+              chinese-enable-fcitx nil
               chinese-enable-youdao-dict t)
      (elfeed :variables
              elfeed-enable-web-interface t
@@ -72,6 +76,9 @@ values."
                       auto-completion-enable-help-tooltip t
                       :disabled-for org git shell)
 
+     ;; Disabling by default
+     (gtags :variables gtags-enable-by-default t)
+
      (better-defaults :variables
                       better-defaults-move-to-beginning-of-code-first t)
      emacs-lisp
@@ -81,11 +88,13 @@ values."
                  typescript-fmt-on-save t)
      ;; colors layer with nyan cat
      (colors :variables colors-enable-nyan-cat-progress-bar t)
+     ;; go
+     (go :variables go-use-gometalinter t)
      ;; markdown
      (org :variables
           org-enable-github-support t
           org-enable-reveal-js-support t)
-     (shell :variables
+     (shell :vgriables
             shell-default-height 30
             shell-default-position 'bottom)
      (c-c++ :variables c-c++-enable-clang-support t)
@@ -372,6 +381,13 @@ you should place your code here."
   ;;(setq indent-tabs-mode nil
   ;;        js-indent-level 2)
 
+  ;; Bind clang-format-region to C-M-tab in all modes:
+  (global-set-key [C-M-tab] 'clang-format-region)
+  ;; Bind clang-format-buffer to tab on the c++-mode only:
+  (add-hook 'c++-mode-hook 'clang-format-bindings)
+  (defun clang-format-bindings ()
+    (define-key c++-mode-map [tab] 'clang-format-buffer))
+
   ;; projectile
   (setq projectile-enable-caching t)
   ;;(setq projectile-indexing-method 'native)
@@ -387,6 +403,9 @@ you should place your code here."
 
   ;; 更改org-mode下的图标
   (setq org-bullets-bullet-list '("■" "◆" "▲" "▶"))
+  ;; org-mode code Block 语法高亮，需要 revert-buffer 生效
+  (setq org-src-fontify-natively t)
+
   ;; 设置底部 powerline 状态栏的样式
   (setq powerline-default-separator 'arrow)
 
@@ -402,6 +421,17 @@ you should place your code here."
                                           try-complete-lisp-symbol-partially
                                           try-complete-lisp-symbol))
   (global-set-key (kbd "s-/") 'hippie-expand)
+
+  ;; org-mode key-maps
+  (add-hook 'org-mode-hook
+            (lambda ()
+              (progn (local-set-key (kbd "<s-return>") 'org-meta-return)
+                     )))
+  (add-to-list 'org-structure-template-alist '("n" . "NOTES"))
+
+  ;; zoom control
+  (global-set-key (kbd "M-<up>") 'zoom-in)
+  (global-set-key (kbd "M-<down>") 'zoom-out)
 
   ;; 多光标编辑
   (global-set-key (kbd "M-s e") 'iedit-mode)
@@ -547,7 +577,7 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (spinner anzu undo-tree smartparens markdown-mode parent-mode pkg-info epl gitignore-mode flx highlight magit-popup git-commit with-editor goto-chg powerline request disaster company-c-headers cmake-mode clang-format bind-map bind-key packed f dash s helm avy helm-core async popup yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc ein request-deferred websocket deferred cython-mode company-anaconda anaconda-mode pythonic ox-reveal rainbow-mode rainbow-identifiers color-identifiers-mode wakatime-mode youdao-dictionary names chinese-word-at-point iedit evil projectile org-plus-contrib magit ghub hydra company-dart yaml-mode company-emacs-eclim eclim dart-mode pdf-tools tablist elfeed-web elfeed-org elfeed-goodies ace-jump-mode noflet elfeed flycheck-pos-tip lsp-ui lsp-vue company-lsp lsp-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data vue-mode edit-indirect ssass-mode vue-html-mode pyim pyim-basedict pangu-spacing find-by-pinyin-dired fcitx ace-pinyin pinyinlib helm-company helm-c-yasnippet fuzzy company-tern dash-functional company-statistics company-quickhelp pos-tip company auto-yasnippet ac-ispell auto-complete ox-gfm org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download htmlize gnuplot xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help wgrep smex ivy-hydra counsel-projectile counsel swiper ivy tern skewer-mode simple-httpd json-snatcher json-reformat yasnippet multiple-cursors js2-mode tide typescript-mode flycheck sql-indent ws-butler winum which-key web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org spaceline smeargle restart-emacs rainbow-delimiters popwin persp-mode pcre2el paradox orgit org-bullets open-junk-file neotree mwim move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode linum-relative link-hint json-mode js2-refactor js-doc indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-ag google-translate golden-ratio gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode coffee-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
+    (helm-gtags ggtags go-guru go-eldoc company-go go-mode vmd-mode spinner anzu undo-tree smartparens markdown-mode parent-mode pkg-info epl gitignore-mode flx highlight magit-popup git-commit with-editor goto-chg powerline request disaster company-c-headers cmake-mode clang-format bind-map bind-key packed f dash s helm avy helm-core async popup yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc ein request-deferred websocket deferred cython-mode company-anaconda anaconda-mode pythonic ox-reveal rainbow-mode rainbow-identifiers color-identifiers-mode wakatime-mode youdao-dictionary names chinese-word-at-point iedit evil projectile org-plus-contrib magit ghub hydra company-dart yaml-mode company-emacs-eclim eclim dart-mode pdf-tools tablist elfeed-web elfeed-org elfeed-goodies ace-jump-mode noflet elfeed flycheck-pos-tip lsp-ui lsp-vue company-lsp lsp-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data vue-mode edit-indirect ssass-mode vue-html-mode pyim pyim-basedict pangu-spacing find-by-pinyin-dired fcitx ace-pinyin pinyinlib helm-company helm-c-yasnippet fuzzy company-tern dash-functional company-statistics company-quickhelp pos-tip company auto-yasnippet ac-ispell auto-complete ox-gfm org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download htmlize gnuplot xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help wgrep smex ivy-hydra counsel-projectile counsel swiper ivy tern skewer-mode simple-httpd json-snatcher json-reformat yasnippet multiple-cursors js2-mode tide typescript-mode flycheck sql-indent ws-butler winum which-key web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org spaceline smeargle restart-emacs rainbow-delimiters popwin persp-mode pcre2el paradox orgit org-bullets open-junk-file neotree mwim move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode linum-relative link-hint json-mode js2-refactor js-doc indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-ag google-translate golden-ratio gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode coffee-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
