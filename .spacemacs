@@ -34,6 +34,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     php
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -45,17 +46,25 @@ values."
      weex
 
      ;; -------------- public layer ----------------
-     react
+     helm
+
+     ;; Lisp Language
+     common-lisp
+     emacs-lisp
+     ;; Python Language
      python
      ipython-notebook
+     ;; Web Dev
      html
      javascript
+     react
+
      (markdown :variables markdown-live-preview-engine 'vmd)
-     helm
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode)
-     ;;java
+     java
      yaml
+
      (chinese :variables
               chinese-enable-avy-pinyin nil
               chinese-enable-fcitx nil
@@ -74,6 +83,11 @@ values."
                wakatime-cli-path "/usr/local/bin/wakatime")
      (auto-completion :variables
                       auto-completion-enable-help-tooltip t
+                      auto-completion-return-key-behavior 'nil
+                      auto-completion-tab-key-behavior 'cycle
+                      auto-completion-complete-with-key-sequence '"jk"
+                      auto-completion-complete-with-key-sequence-delay 0.2
+                      auto-completion-private-snippets-directory nil
                       :disabled-for org git shell)
 
      ;; Disabling by default
@@ -87,7 +101,7 @@ values."
      (typescript :variables
                  typescript-fmt-on-save t)
      ;; colors layer with nyan cat
-     (colors :variables colors-enable-nyan-cat-progress-bar t)
+     ;;(colors :variables colors-enable-nyan-cat-progress-bar t)
      ;; go
      (go :variables go-use-gometalinter t)
      ;; markdown
@@ -119,7 +133,9 @@ values."
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(
+                                    php-extras
+                                    )
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and uninstall any
@@ -433,6 +449,9 @@ you should place your code here."
   (global-set-key (kbd "M-<up>") 'zoom-in)
   (global-set-key (kbd "M-<down>") 'zoom-out)
 
+  ;; Intented Buffer
+  (global-set-key (kbd "s-f") 'spacemacs/indent-region-or-buffer)
+
   ;; 多光标编辑
   (global-set-key (kbd "M-s e") 'iedit-mode)
 
@@ -575,9 +594,15 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(mac-command-modifier (quote super))
+ '(mac-mouse-wheel-mode t)
+ '(mac-option-modifier (quote meta))
+ '(org-agenda-files
+   (quote
+    ("/Users/linryan/org/gtd.org" "/Users/linryan/org/journal.org" "/Users/linryan/org/notes.org" "/Users/linryan/org/snippet.org" "/Users/linryan/org/code/read_flutter_source_code.org" "/Users/linryan/org/code/read_java_source_code.org" "/Users/linryan/org/code/read_okhttp_source_code.org" "/Users/linryan/org/code/read_react_native_source_code.org" "/Users/linryan/org/doc/doc_android_app_bundle.org" "/Users/linryan/org/doc/doc_info_elisp.org" "/Users/linryan/org/doc/doc_web_idea_plugin_develop.org" "/Users/linryan/org/books/being_friends_with_time.org" "/Users/linryan/org/books/how_to_read_a_book.org" "/Users/linryan/org/books/the_art_of_unix_programming.org")))
  '(package-selected-packages
    (quote
-    (helm-gtags ggtags go-guru go-eldoc company-go go-mode vmd-mode spinner anzu undo-tree smartparens markdown-mode parent-mode pkg-info epl gitignore-mode flx highlight magit-popup git-commit with-editor goto-chg powerline request disaster company-c-headers cmake-mode clang-format bind-map bind-key packed f dash s helm avy helm-core async popup yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc ein request-deferred websocket deferred cython-mode company-anaconda anaconda-mode pythonic ox-reveal rainbow-mode rainbow-identifiers color-identifiers-mode wakatime-mode youdao-dictionary names chinese-word-at-point iedit evil projectile org-plus-contrib magit ghub hydra company-dart yaml-mode company-emacs-eclim eclim dart-mode pdf-tools tablist elfeed-web elfeed-org elfeed-goodies ace-jump-mode noflet elfeed flycheck-pos-tip lsp-ui lsp-vue company-lsp lsp-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data vue-mode edit-indirect ssass-mode vue-html-mode pyim pyim-basedict pangu-spacing find-by-pinyin-dired fcitx ace-pinyin pinyinlib helm-company helm-c-yasnippet fuzzy company-tern dash-functional company-statistics company-quickhelp pos-tip company auto-yasnippet ac-ispell auto-complete ox-gfm org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download htmlize gnuplot xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help wgrep smex ivy-hydra counsel-projectile counsel swiper ivy tern skewer-mode simple-httpd json-snatcher json-reformat yasnippet multiple-cursors js2-mode tide typescript-mode flycheck sql-indent ws-butler winum which-key web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org spaceline smeargle restart-emacs rainbow-delimiters popwin persp-mode pcre2el paradox orgit org-bullets open-junk-file neotree mwim move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode linum-relative link-hint json-mode js2-refactor js-doc indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-ag google-translate golden-ratio gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode coffee-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
+    (slime-company slime common-lisp-snippets geiser lv polymode ht transient phpunit phpcbf php-extras php-auto-yasnippets drupal-mode php-mode helm-gtags ggtags go-guru go-eldoc company-go go-mode vmd-mode spinner anzu undo-tree smartparens markdown-mode parent-mode pkg-info epl gitignore-mode flx highlight magit-popup git-commit with-editor goto-chg powerline request disaster company-c-headers cmake-mode clang-format bind-map bind-key packed f dash s helm avy helm-core async popup yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc ein request-deferred websocket deferred cython-mode company-anaconda anaconda-mode pythonic ox-reveal rainbow-mode rainbow-identifiers color-identifiers-mode wakatime-mode youdao-dictionary names chinese-word-at-point iedit evil projectile org-plus-contrib magit ghub hydra company-dart yaml-mode company-emacs-eclim eclim dart-mode pdf-tools tablist elfeed-web elfeed-org elfeed-goodies ace-jump-mode noflet elfeed flycheck-pos-tip lsp-ui lsp-vue company-lsp lsp-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data vue-mode edit-indirect ssass-mode vue-html-mode pyim pyim-basedict pangu-spacing find-by-pinyin-dired fcitx ace-pinyin pinyinlib helm-company helm-c-yasnippet fuzzy company-tern dash-functional company-statistics company-quickhelp pos-tip company auto-yasnippet ac-ispell auto-complete ox-gfm org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download htmlize gnuplot xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help wgrep smex ivy-hydra counsel-projectile counsel swiper ivy tern skewer-mode simple-httpd json-snatcher json-reformat yasnippet multiple-cursors js2-mode tide typescript-mode flycheck sql-indent ws-butler winum which-key web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org spaceline smeargle restart-emacs rainbow-delimiters popwin persp-mode pcre2el paradox orgit org-bullets open-junk-file neotree mwim move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode linum-relative link-hint json-mode js2-refactor js-doc indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-ag google-translate golden-ratio gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode coffee-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
