@@ -2,6 +2,10 @@
 
 ## install
 
+> git clone git@github.com:chengruilin/config.git ~/.chrconfigs
+or
+> git clone https://github.com/chengruilin/config.git ~/.chrconfigs
+
 ``` shell
 chmod +x install.sh
 ./install.sh

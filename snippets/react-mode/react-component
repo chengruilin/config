@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: react-component
+# key: recomp
+# --
+import React, { Component } from 'react';
+
+export default class $1 extends Component {
+  state = {
+  };
+  render() {
+    $0
+  };
+}

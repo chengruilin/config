@@ -1,4 +1,4 @@
-;; -*- mode: emacs-lisp -*-
+; -*- mode: emacs-lisp -*-
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
@@ -29,7 +29,7 @@ values."
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
    dotspacemacs-configuration-layer-path
    '(
-     "~/.emacs.d/private/layers"
+     "~/.chrconfigs/layers"
      )
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
@@ -71,9 +71,9 @@ values."
               chinese-enable-youdao-dict t)
      (elfeed :variables
              elfeed-enable-web-interface t
-             rmh-elfeed-org-files (list "~/.emacs.d/private/rssfeeds/dev-feeds.org"
-                                        "~/.emacs.d/private/rssfeeds/favor-feeds.org"
-                                        "~/.emacs.d/private/rssfeeds/news-feeds.org"))
+             rmh-elfeed-org-files (list "~/.chrconfigs/rssfeeds/dev-feeds.org"
+                                        "~/.chrconfigs/rssfeeds/favor-feeds.org"
+                                        "~/.chrconfigs/rssfeeds/news-feeds.org"))
      pdf-tools
      ;;auto-completion
      ;;d5d55554-ee2a-4a9e-8fb7-2b513e4fd45c
@@ -84,8 +84,8 @@ values."
      (auto-completion :variables
                       auto-completion-enable-help-tooltip t
                       auto-completion-return-key-behavior 'nil
-                      auto-completion-tab-key-behavior 'cycle
-                      auto-completion-complete-with-key-sequence '"jk"
+                      auto-completion-tab-key-behavior 'complete
+                      ;; auto-completion-complete-with-key-sequence '"jk"
                       auto-completion-complete-with-key-sequence-delay 0.2
                       auto-completion-private-snippets-directory nil
                       :disabled-for org git shell)
@@ -216,8 +216,8 @@ values."
                                :size 14
                                :weight normal
                                :width normal
-                               :powerline-scale 1.1)
-   ;; The leader key
+                               :powerline-scale 1.0)
+  ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The key used for Emacs commands (M-x) (after pressing on the leader key).
    ;; (default "SPC")
@@ -437,6 +437,10 @@ you should place your code here."
                                           try-complete-lisp-symbol-partially
                                           try-complete-lisp-symbol))
   (global-set-key (kbd "s-/") 'hippie-expand)
+
+  ;; yas-snippets
+  (setq yas-snippet-dirs (append yas-snippet-dirs
+                                 '("~/.chrconfigs/snippets")))
 
   ;; org-mode key-maps
   (add-hook 'org-mode-hook
