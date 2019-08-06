@@ -13,12 +13,12 @@ SPACEMACS_FILE="$HOME/.spacemacs"
 if [ $OS_NAME == "Darwin" ]; then
     echo 'Mac has git installed'
 elif [ $OS_NAME == "Linux" ]; then
-    if command -v git >/dev/null 2>$1; then
+    if command -v git >/dev/null 2>&1; then
         echo 'git has installed.'
-    elif command -v yum >/dev/null 2>$1; then
+    elif command -v yum >/dev/null 2>&1; then
         echo 'Install git with yum'
         `sudo yum install git`
-    elif command -v apt-get >/dev/null 2>$1; then
+    elif command -v apt-get >/dev/null 2>&1; then
         echo 'Install git with apt-get'
         `sudo apt-get install git`
     else
@@ -39,7 +39,7 @@ _initNvmSettings() {
     fi
 }
 
-if command -v nvm >/dev/null 2>$1; then
+if command -v nvm >/dev/null 2>&1; then
     #ignore
     echo "num has installed"
 else
@@ -74,7 +74,7 @@ _createSpacemacsFile() {
 }
 
 _npmInstallSpaceSupport() {
-    if command -v npm >/dev/null 2>$1; then
+    if command -v npm >/dev/null 2>&1; then
         echo 'install ternJS'
         `npm install -g tern`
         echo 'install js-beautify'
@@ -89,7 +89,7 @@ _npmInstallSpaceSupport() {
 }
 
 _installWakatime() {
-    if command -v wakatime >/dev/null 2>$1; then
+    if command -v wakatime >/dev/null 2>&1; then
         echo 'You can install wakatime use command:[sudo pip install wakatime]'
     fi
 }
