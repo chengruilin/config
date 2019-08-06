@@ -9,8 +9,7 @@ ORG_PATH="$HOME/.chr-org"
 SPACEMACS_BAK="$HOME/_spacemacs.bak1024"
 SPACEMACS_FILE="$HOME/.spacemacs"
 
-#------- Install Git ----------
-
+#-------------- Install 'git' --------------
 if [ $OS_NAME == "Darwin" ]; then
     echo 'Mac has git installed'
 elif [ $OS_NAME == "Linux" ]; then
@@ -27,7 +26,33 @@ elif [ $OS_NAME == "Linux" ]; then
     fi
 fi
 
-#-------------- Install Spacemacs --------------
+#-------------- Install 'nvm' --------------
+_initNvmSettings() {
+    read -r -p "Input default node version (default: 8.11.1), [N] for not install:" node_version
+    node_version=${node_version:="8.11.1"}
+    if [[ "$node_version" == "N" ]]; then
+        echo "You can install nvm or node manual."
+    elif [[ ! -z "$node_version" ]]; then
+        `nvm install $node_version`
+        `nvm use $node_version`
+        `nvm alias default $node_version`
+    fi
+}
+
+if command -v nvm >/dev/null 2>$1; then
+    #ignore
+else
+    read -r -p "Install nvm? [y/N]" nvm_y_n
+    nvm_y_n=${nvm_y_n:="Y"}
+    if [[ "$nvm_y_n" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
+        `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash`
+        echo "Init nvm settins:"
+        _initNvmSettings
+    fi
+fi
+
+
+#-------------- Create Spacemacs Configs --------------
 _createSpacemacsFile() {
     if [ -f "$SPACEMACS_FILE" ] && [ ! -h "$SPACEMACS_FILE" ]; then
         read -r -p "File .spaceamcs exits, backup it (defualt is _spacemacs.bak1024) ? " space_backup
@@ -84,27 +109,7 @@ if [[ "$space_y_n" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
     _installWakatime
 fi
 
-#-------------- Install nvm --------------
-if command -v nvm >/dev/null 2>$1; then
-    #ignore
-else
-    read -r -p "Install spacemacs? [y/N]" nvm_y_n
-    nvm_y_n=${nvm_y_n:="Y"}
-    if [[ "$nvm_y_n" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
-        `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash`
-    fi
-fi
-read -r -p "Input default node version (default: 8.11.1):" node_version
-node_version=${node_version:="8.11.1"}
-if [[ ! -z "$node_version" ]]; then
-    `nvm install $node_version`
-    `nvm use $node_version`
-    `nvm alias default $node_version`
-fi
-
-
-
-#-------------- Git Clone org files --------------
+#-------------- Create personal org files --------------
 read -r -p "Need clone org files? [y/N] " org_y_n
 org_y_n=${org_y_n:="Y"}
 if [[ "$org_y_n" =~ ^([yY][eE][sS]|[yY])+$ ]]; then

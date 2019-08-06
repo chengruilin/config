@@ -503,11 +503,11 @@ you should place your code here."
 
   ;; Config for org-mode
   (defvar org-agenda-dir "" "gtd org files location")
-  (setq-default org-agenda-dir "~/org")
-  (setq-default org-agenda-read-book-dir "~/org/books")
-  (setq-default org-agenda-read-doc-dir "~/org/doc")
-  (setq-default org-agenda-code-dir "~/org/code")
-  (setq-default org-agenda-local-dir "~/org/local")
+  (setq-default org-agenda-dir "~/.chr-org")
+  (setq-default org-agenda-read-book-dir "~/.chr-org/books")
+  (setq-default org-agenda-read-doc-dir "~/.chr-org/doc")
+  (setq-default org-agenda-code-dir "~/.chr-org/code")
+  (setq-default org-agenda-local-dir "~/.chr-org/local")
 
   (setq org-agenda-file-note (expand-file-name "notes.org" org-agenda-dir))
   (setq org-agenda-file-gtd (expand-file-name "gtd.org" org-agenda-dir))
