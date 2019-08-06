@@ -1,108 +1,115 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-echo "Ryan's config installing..."
+echo "Chengrui's config installing..."
 
-current_path=`pwd`
-file_spacemacs="$HOME/.spacemacs"
-file_bak_spacemacs="$HOME/_spacemacs.bak1024"
+CURRENT_PATH=`pwd`
+ORG_PATH="$HOME/.chr-org"
+SPACEMACS_BAK="$HOME/_spacemacs.bak1024"
+SPACEMACS_FILE="$HOME/.spacemacs"
 
-file_layers="$HOME/.emacs.d/private/layers"
-
-file_snippets="$HOME/.emacs.d/private/snippets"
-file_bak_snippets="$HOME/.emacs.d/private/snippets.bak1024"
-
-file_feeds="$HOME/.emacs.d/private/rssfeeds"
-
-echo " "
-echo "------------------ spacemacs ------------------"
-
-#if [ -h "$file_bak_spacemacs" ]; then
-#    echo "bak file exists, delete it"
-#    `rm ${file_bak_spacemacs}`
-#fi
-
-#file_spacemacs="$HOME/_spacemacs"
-
-if [ -f "$file_spacemacs" ] && [ ! -h "$file_spacemacs" ]; then
-    read -r -p "File .spaceamcs exits, backup it (defualt is _spacemacs.bak1024) ? " check_bak_spacemacs
-
-    if [ ! -n "$check_bak_spacemacs" ]; then
-        check_bak_spacemacs="$file_bak_spacemacs"
+#------- Install Git ----------
+OS = `uname -s`
+if [ $OS == "Darwin" ]; then
+    echo 'Mac has git installed'
+elif [ $OS == "Linux" ]; then
+    if command -v git >/dev/null 2>$1; then
+        echo 'git has installed.'
+    elif command -v yum >/dev/null 2>$1; then
+        echo 'Install git with yum'
+        `sudo yum install git`
+    elif command -v apt-get >/dev/null 2>$1; then
+        echo 'Install git with apt-get'
+        `sudo apt-get install git`
     else
-        check_bak_spacemacs="$HOME/$check_bak_spacemacs"
+        echo 'Cannot install git auto'
+    fi
+fi
+
+#-------------- Install Spacemacs --------------
+_createSpacemacsFile() {
+    if [ -f "$SPACEMACS_FILE" ] && [ ! -h "$SPACEMACS_FILE" ]; then
+        read -r -p "File .spaceamcs exits, backup it (defualt is _spacemacs.bak1024) ? " space_backup
+        if [ ! -n "$space_backup" ]; then
+            space_backup="$SPACEMACS_BAK"
+        else
+            space_backup="$HOME/$space_backup"
+        fi
+        `mv ${SPACEMACS_FILE} ${space_backup}`
+    else
+        echo "$file_spacemacs file not exists."
     fi
 
-    `mv ${file_spacemacs} ${check_bak_spacemacs}`
-else
-    echo "$file_spacemacs file not exists."
-fi
-
-if [ ! -h "$file_spacemacs" ]; then
-    echo "Link spacemacs file to $file_spacemacs"
-    `ln -s ${current_path}/.spacemacs ${file_spacemacs}`
-fi
-
-echo " "
-echo "------------------ layers ------------------"
-
-
-if [ ! -h "${current_path}/layers" ]; then
-    echo "Link private layer to $file_layers"
-    `ln -s ${current_path}/layers ${file_layers}`
-fi
-
-echo " "
-echo "------------------ snippets ------------------"
-
-if [ -L "$file_bak_snippets" ]; then
-    echo "bak snippets exists, delete it"
-    `rm ${file_bak_snippets}`
-else
-    echo "$file_bak_snippets not exits"
-fi
-
-if [ -d "$file_snippets" ] && [ ! -h "$file_snippets" ]; then
-    echo "Copy origin snippts directory to snippts.bak1024"
-    `mv ${file_snippets} ${file_bak_snippets}`
-else
-    echo "snippets directory not exists."
-fi
-
-echo " "
-echo "------------------ Org-Files ------------------"
-
-if [ ! -h "${current_path}/snippets" ]; then
-    echo "Link custom snippts to ~/.emacs.d/snippets"
-    `ln -s ${current_path}/snippets ${file_snippets}`
-fi
-
-#-------------- Git Clone org files --------------
-org_clone_path="$HOME/org"
-cloneOrgFiles() {
-    if command -v git >/dev/null 2>&1; then
-        if [ ! -d "$org_clone_path" ]; then
-            echo 'clone org files to ~/org'
-            `git clone git@github.com:chengruilin/org.git $org_clone_path`
-        fi
-    else
-        echo 'no exists git'
+    if [ ! -h "$SPACEMACS_FILE" ]; then
+        echo "Link spacemacs file to $file_spacemacs"
+        `ln -s ${CURRENT_PATH}/.spacemacs ${SPACEMACS_FILE}`
     fi
 }
 
-read -r -p "Need clone org files? [y/N] " response
-response=${response:="Y"}
-if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
-then
-    cloneOrgFiles
+_npmInstallSpaceSupport() {
+    if command -v npm >/dev/null 2>$1; then
+        echo 'install ternJS'
+        `npm install -g tern`
+        echo 'install js-beautify'
+        `npm install -g js-beautify`
+        echo 'install eslint'
+        `npm install -g eslint`
+        echo 'install jshint'
+        `npm install -g jshint`
+    else
+        echo 'You must install node first.'
+    fi
+}
+
+_installWakatime() {
+    if command -v wakatime >/dev/null 2>$1; then
+        echo 'You can install wakatime use command:[sudo pip install wakatime]'
+    fi
+}
+
+read -r -p "Install spacemacs? [y/N]" space_y_n
+space_y_n=${space_y_n:="Y"}
+if [[ "$space_y_n" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
+
+    `git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d`
+
+    echo 'Create .spacemacs file:'
+    _createSpacemacsFile
+
+    echo 'Install npm support:'
+    _npmInstallSpaceSupport
+
+    echo 'Install wakatime:'
+    _installWakatime
+fi
+
+#-------------- Install nvm --------------
+if command -v nvm >/dev/null 2>$1; then
+    #ignore
 else
-    echo "Finish"
+    read -r -p "Install spacemacs? [y/N]" nvm_y_n
+    nvm_y_n=${nvm_y_n:="Y"}
+    if [[ "$nvm_y_n" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
+        `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash`
+    fi
+fi
+read -r -p "Input default node version (default: 8.11.1):" node_version
+node_version=${node_version:="8.11.1"}
+if [[ ! -z "$node_version" ]]; then
+    `nvm install $node_version`
+    `nvm use $node_version`
+    `nvm alias default $node_version`
 fi
 
-#-------------- RSS Feeds import --------------
-echo " "
-echo "------------------ RSS Feeds ------------------"
-if [ ! -h "${current_path}/rssfeeds" ]; then
-    echo "Link RSS feeds file to ~/.emacs.d/private/rssfeeds"
-    `ln -s ${current_path}/rssfeeds ${file_feeds}`
-fi
 
+
+#-------------- Git Clone org files --------------
+read -r -p "Need clone org files? [y/N] " org_y_n
+org_y_n=${org_y_n:="Y"}
+if [[ "$org_y_n" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
+    if command -v git >/dev/null 2>&1; then
+        if [ ! -d "$org_clone_path" ]; then
+            echo 'clone org files to ~/.chr-org'
+            `git clone git@github.com:chengruilin/org.git $ORG_PATH`
+        fi
+    fi
+fi
