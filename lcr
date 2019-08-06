@@ -1,0 +1,158 @@
+#!/usr/bin/env bash
+
+CURRENT_PATH=`pwd`
+OS_NAME=`uname -s`
+
+ORG_PATH="$HOME/.chr-org"
+SPACEMACS_BAK="$HOME/_spacemacs.bak1024"
+SPACEMACS_FILE="$HOME/.spacemacs"
+
+#-------------- Install 'git' --------------
+chr_install_git() {
+    if [ $OS_NAME == "Darwin" ]; then
+        if command -v git >/dev/null 2?&1; then
+            echo 'You can install git manual.'
+        else
+            echo 'Mac has git installed.'
+        fi
+    elif [ $OS_NAME == "Linux" ]; then
+        if command -v git >/dev/null 2>&1; then
+            echo 'git has installed.'
+        elif command -v yum >/dev/null 2>&1; then
+            echo 'Install git with yum'
+            `sudo yum install git`
+        elif command -v apt-get >/dev/null 2>&1; then
+            echo 'Install git with apt-get'
+            `sudo apt-get install git`
+        else
+            echo 'Cannot install git auto'
+        fi
+    fi
+}
+
+#-------------- Install 'nvm' --------------
+_initNvmSettings() {
+    read -r -p "Input default node version (default: 8.11.1), [N] for not install:" node_version
+    node_version=${node_version:="8.11.1"}
+    if [[ "$node_version" == "N" ]]; then
+        echo "You can install nvm or node manual."
+    elif [[ ! -z "$node_version" ]]; then
+        `nvm install $node_version`
+        `nvm use $node_version`
+        `nvm alias default $node_version`
+    fi
+}
+
+chr_install_nvm() {
+    if command -v nvm >/dev/null 2>&1; then
+        #ignore
+        echo "num has installed"
+    else
+        read -r -p "Install nvm? [y/N]" nvm_y_n
+        nvm_y_n=${nvm_y_n:="Y"}
+        if [[ "$nvm_y_n" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
+            `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash`
+            echo "Init nvm settins:"
+            _initNvmSettings
+        fi
+    fi
+}
+
+
+#-------------- Create Spacemacs Configs --------------
+_createSpacemacsFile() {
+    if [ -f "$SPACEMACS_FILE" ] && [ ! -h "$SPACEMACS_FILE" ]; then
+        read -r -p "File .spaceamcs exits, backup it (defualt is _spacemacs.bak1024) ? " space_backup
+        if [ ! -n "$space_backup" ]; then
+            space_backup="$SPACEMACS_BAK"
+        else
+            space_backup="$HOME/$space_backup"
+        fi
+        `mv ${SPACEMACS_FILE} ${space_backup}`
+    else
+        echo "$file_spacemacs file not exists."
+    fi
+
+    if [ ! -h "$SPACEMACS_FILE" ]; then
+        echo "Link spacemacs file to $file_spacemacs"
+        `ln -s ${CURRENT_PATH}/spacemacs ${SPACEMACS_FILE}`
+    fi
+}
+
+_npmInstallSpaceSupport() {
+    if command -v npm >/dev/null 2>&1; then
+        echo 'install ternJS'
+        `npm install -g tern`
+        echo 'install js-beautify'
+        `npm install -g js-beautify`
+        echo 'install eslint'
+        `npm install -g eslint`
+        echo 'install jshint'
+        `npm install -g jshint`
+    else
+        echo 'You must install node first.'
+    fi
+}
+
+_installWakatime() {
+    if command -v wakatime >/dev/null 2>&1; then
+        echo 'You can install wakatime use command:[sudo pip install wakatime]'
+    fi
+}
+
+chr_install_spacemacs() {
+    read -r -p "Install spacemacs? [y/N]" space_y_n
+    space_y_n=${space_y_n:="Y"}
+    if [[ "$space_y_n" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
+
+        `git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d`
+
+        echo 'Create .spacemacs file:'
+        _createSpacemacsFile
+
+        echo 'Install npm support:'
+        _npmInstallSpaceSupport
+
+        echo 'Install wakatime:'
+        _installWakatime
+    fi
+}
+
+#-------------- Create personal org files --------------
+chr_clone_org() {
+    read -r -p "Need clone org files? [y/N] " org_y_n
+    org_y_n=${org_y_n:="Y"}
+    if [[ "$org_y_n" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
+        if command -v git >/dev/null 2>&1; then
+            if [ ! -d "$org_clone_path" ]; then
+                echo 'clone org files to ~/.chr-org'
+                `git clone git@github.com:chengruilin/org.git $ORG_PATH`
+            fi
+        fi
+    fi
+}
+
+chr_help() {
+    echo "Personal config init"
+    echo "Usage:"
+    echo "    lcr help         Show available commands."
+    echo "    lcr git          Install Git tools."
+    echo "    lcr spacemacs    Install spacemacs and link spacemacs file."
+    echo "    lcr org          Clone my org files."
+    echo "    lcr nvm          Install nvm tools and set node version."
+}
+
+chr_main() {
+    echo "Chengrui's config installing..."
+    echo "OS is $OS_NAME"
+    case $1 in
+        help)   chr_help ;;
+        git)    chr_install_git ;;
+        space)  chr_install_spacemacs ;;
+        org)    chr_clone_org ;;
+        nvm)    chr_install_nvm ;;
+        *) chr_help ;;
+    esac
+}
+
+chr_main $1
