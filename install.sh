@@ -3,15 +3,17 @@
 echo "Chengrui's config installing..."
 
 CURRENT_PATH=`pwd`
+OS_NAME=`uname -s`
+
 ORG_PATH="$HOME/.chr-org"
 SPACEMACS_BAK="$HOME/_spacemacs.bak1024"
 SPACEMACS_FILE="$HOME/.spacemacs"
 
 #------- Install Git ----------
-OS = `uname -s`
-if [ $OS == "Darwin" ]; then
+
+if [ $OS_NAME == "Darwin" ]; then
     echo 'Mac has git installed'
-elif [ $OS == "Linux" ]; then
+elif [ $OS_NAME == "Linux" ]; then
     if command -v git >/dev/null 2>$1; then
         echo 'git has installed.'
     elif command -v yum >/dev/null 2>$1; then
@@ -41,7 +43,7 @@ _createSpacemacsFile() {
 
     if [ ! -h "$SPACEMACS_FILE" ]; then
         echo "Link spacemacs file to $file_spacemacs"
-        `ln -s ${CURRENT_PATH}/.spacemacs ${SPACEMACS_FILE}`
+        `ln -s ${CURRENT_PATH}/spacemacs ${SPACEMACS_FILE}`
     fi
 }
 
