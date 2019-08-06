@@ -41,6 +41,7 @@ _initNvmSettings() {
 
 if command -v nvm >/dev/null 2>$1; then
     #ignore
+    echo "num has installed"
 else
     read -r -p "Install nvm? [y/N]" nvm_y_n
     nvm_y_n=${nvm_y_n:="Y"}

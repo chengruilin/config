@@ -5,9 +5,9 @@
 import React, { Component } from 'react';
 
 export default class $1 extends Component {
-  state = {
-  };
   render() {
-    $0
+    return(
+      $0
+    );
   };
 }
