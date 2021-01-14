@@ -42,9 +42,8 @@ values."
      ;; ----------------------------------------------------------------
 
      ;; -------------- private layer ---------------
-     ;;flutter
-     ;;weex
-     vue
+     flutter
+     weex
 
      ;; -------------- public layer ----------------
      helm
@@ -53,7 +52,7 @@ values."
      common-lisp
      emacs-lisp
      ;; Python Language
-     (python :variables python-backend 'anaconda)
+     python
      ipython-notebook
      ;; Web Dev
      html
@@ -76,7 +75,7 @@ values."
              rmh-elfeed-org-files (list "~/.chrconfigs/rssfeeds/dev-feeds.org"
                                         "~/.chrconfigs/rssfeeds/favor-feeds.org"
                                         "~/.chrconfigs/rssfeeds/news-feeds.org"))
-     ;;pdf-tools
+     pdf-tools
      ;;auto-completion
      ;;d5d55554-ee2a-4a9e-8fb7-2b513e4fd45c
      (wakatime :variables
@@ -87,6 +86,7 @@ values."
                       auto-completion-enable-help-tooltip t
                       auto-completion-return-key-behavior 'nil
                       auto-completion-tab-key-behavior 'complete
+                      ;; jk -> 补全
                       ;; auto-completion-complete-with-key-sequence '"jk"
                       auto-completion-complete-with-key-sequence-delay 0.2
                       auto-completion-private-snippets-directory nil
@@ -179,7 +179,7 @@ values."
    ;; with `:variables' keyword (similar to layers). Check the editing styles
    ;; section of the documentation for details on available variables.
    ;; (default 'vim)
-   dotspacemacs-editing-style 'emacs
+   dotspacemacs-editing-style 'hybrid
    ;; If non nil output loading progress in `*Messages*' buffer. (default nil)
    dotspacemacs-verbose-loading nil
    ;; Specify the startup banner. Default value is `official', it displays
@@ -204,8 +204,8 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(misterioso
-                         spacemacs-dark
+   dotspacemacs-themes '(spacemacs-dark
+                         misterioso
                          spacemacs-light)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -214,9 +214,11 @@ values."
    ;;dotspacemacs-default-font '("Source Code Variable"
    ;;"Hiragino Sans GB"
    ;;设置等宽字体
+   ;;dotspacemacs-default-font '("WenQuanYi Micro Hei Mono"
    dotspacemacs-default-font '("WenQuanYi Micro Hei Mono"
+                               :family "Menlo, Monaco, 'Courier New', monospace"
                                :size 14
-                               :weight normal
+                               :weight light
                                :width normal
                                :powerline-scale 1.6)
    ;; The leader key
@@ -393,11 +395,6 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  ;;(setq-default js2-basic-offset 2)
-  ;;(setq-default js-indent-level 2)
-  ;;(setq-default css-indent-offset 2)
-  ;;(setq indent-tabs-mode nil
-  ;;        js-indent-level 2)
 
   ;; Bind clang-format-region to C-M-tab in all modes:
   (global-set-key [C-M-tab] 'clang-format-region)
@@ -421,6 +418,7 @@ you should place your code here."
 
   ;; 更改org-mode下的图标
   (setq org-bullets-bullet-list '("■" "◆" "▲" "▶"))
+
   ;; org-mode code Block 语法高亮，需要 revert-buffer 生效
   (setq org-src-fontify-natively t)
 
@@ -468,9 +466,13 @@ you should place your code here."
     (define-key company-active-map (kbd "C-n") #'company-select-next)
     (define-key company-active-map (kbd "C-p") #'company-select-previous))
 
+  ;; 全局使用 company-mode 自动补全
+  (global-company-mode)
+
   ;; 设置js2-mode下分号warning不显示
   (setq js2-strict-missing-semi-warning nil)
-  (global-company-mode)
+
+  ;; web/js2-mode下的格式化配置
   (setq-default
    ;; js2-mode
    js2-basic-offset 2
@@ -482,21 +484,15 @@ you should place your code here."
    web-mode-code-indent-offset 2
    web-mode-attr-indent-offset 2)
 
+  ;; 有道翻译快捷键设置
   (spacemacs/set-leader-keys "yT" 'youdao-dictionary-search-at-point)
-  ;; personal key bindings
   (spacemacs/set-leader-keys "yt" 'youdao-dictionary-search-at-point+)
   (spacemacs/set-leader-keys "ys" 'youdao-dictionary-search)
   (global-set-key (kbd "C-x y T") 'youdao-dictionary-search-at-point)
   (global-set-key (kbd "C-x y t") 'youdao-dictionary-search-at-point+)
   (global-set-key (kbd "C-x y s") 'youdao-dictionary-search)
 
-  ;; eclim
-  (setq eclim-eclipse-dirs '("~/snap/eclipse/29")
-        eclim-executable "~/opt/eclipse/eclim")
-
   ;; Config Object-C mode
-  ;; (add-to-list 'auto-mode-alist '("\\.mm\\'" . objc-mode))
-  ;; (add-to-list 'auto-mode-alist '("\\.m\\'" . objc-mode))
   (setq auto-mode-alist (cons '("\\.m\\'" . objc-mode)
                               (delq (assoc "\\.m\\'" auto-mode-alist) auto-mode-alist)))
   (setq auto-mode-alist (cons '("\\.mm\\'" . objc-mode)
@@ -600,6 +596,10 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(company-tooltip-common
+   ((t (:inherit company-tooltip :weight bold :underline nil))))
+ '(company-tooltip-common-selection
+   ((t (:inherit company-tooltip-selection :weight bold :underline nil))))
  '(mac-mouse-wheel-mode t)
  '(ns-alternate-modifier (quote meta))
  '(ns-command-modifier (quote super))

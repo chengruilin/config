@@ -61,7 +61,7 @@ Each entry is either:
         recipe.  See: https://github.com/milkypostman/melpa#recipe-format")
 
 (defun flutter/post-init-company()
-  (spacemacs|add-company-hook dart-mode))
+  (spacemacs|add-company-backends dart-mode))
 
 (defun flutter/post-init-flycheck()
   (spacemacs/add-flycheck-hook 'dart-mode))

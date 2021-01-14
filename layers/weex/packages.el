@@ -32,7 +32,7 @@
 (defconst weex-packages
   '(
     lsp-mode
-    lsp-vue
+    ;;lsp-vue
     company-lsp
     web-mode
     company
@@ -64,18 +64,18 @@ Each entry is either:
       - A list beginning with the symbol `recipe' is a melpa
         recipe.  See: https://github.com/milkypostman/melpa#recipe-format")
 (defun weex/post-init-company()
-  (spacemacs|add-company-hook web-mode))
+  (spacemacs|add-company-backends web-mode))
 
 (defun weex/init-lsp-mode()
   (use-package lsp-mode))
 
-(defun weex/init-lsp-vue()
-  (use-package lsp-vue
-    :defer t
-    :config
-    (progn
-      (add-hook 'web-mode-hook 'lsp-vue-enable))
-    ))
+;;(defun weex/init-lsp-vue()
+;;  (use-package lsp-vue
+;;    :defer t
+;;    :config
+;;    (progn
+;;      (add-hook 'web-mode-hook 'lsp-vue-enable))
+;;    ))
 
 (defun weex/init-company-lsp()
   (use-package company-lsp
